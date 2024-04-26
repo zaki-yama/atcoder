@@ -7,16 +7,21 @@ fn main() {
         (n, a, b): (i32, i32, i32)
     }
 
-    let mut ans = 0;
-    for i in 1..=n {
-        let sum = i
-            .to_string()
-            .chars()
-            .map(|c| c.to_digit(10).unwrap() as i32)
-            .sum::<i32>();
-        if a <= sum && sum <= b {
-            ans += i;
-        }
-    }
+    let ans = (1..=n)
+        .filter(|&i| {
+            let sum = sum_of_digits(i);
+            a <= sum && sum <= b
+        })
+        .sum::<i32>();
+
     println!("{}", ans);
+}
+
+fn sum_of_digits(mut num: i32) -> i32 {
+    let mut sum = 0;
+    while num > 0 {
+        sum += num % 10;
+        num /= 10;
+    }
+    sum
 }
