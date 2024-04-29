@@ -8,40 +8,58 @@ fn sample1() {
     let output = testdir
         .cmd()
         // change here
-        .output_with_stdin(r#" "#)
+        .output_with_stdin(
+            r#"4
+10
+8
+8
+6"#,
+        )
         .tee_output()
         .expect_success();
     // change here
-    assert_eq!(output.stdout_str(), "\n");
+    assert_eq!(output.stdout_str(), "3\n");
     assert!(output.stderr_str().is_empty());
 }
 
 #[test]
-#[ignore]
 fn sample2() {
     let testdir = TestDir::new(BIN, "");
     let output = testdir
         .cmd()
         // change here
-        .output_with_stdin(r#" "#)
+        .output_with_stdin(
+            r#"3
+15
+15
+15"#,
+        )
         .tee_output()
         .expect_success();
     // change here
-    assert_eq!(output.stdout_str(), "\n");
+    assert_eq!(output.stdout_str(), "1\n");
     assert!(output.stderr_str().is_empty());
 }
 
 #[test]
-#[ignore]
 fn sample3() {
     let testdir = TestDir::new(BIN, "");
     let output = testdir
         .cmd()
         // change here
-        .output_with_stdin(r#" "#)
+        .output_with_stdin(
+            r#"7
+50
+30
+50
+100
+50
+80
+30"#,
+        )
         .tee_output()
         .expect_success();
     // change here
-    assert_eq!(output.stdout_str(), "\n");
+    assert_eq!(output.stdout_str(), "4\n");
     assert!(output.stderr_str().is_empty());
 }
