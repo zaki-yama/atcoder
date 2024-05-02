@@ -5,15 +5,29 @@ use proconio::input;
 fn main() {
     input! {
         n: usize,
-        mut plan: [(i32, i32, i32); n],  // Vec<(i32, i32, i32)>
+        mut points: [(i32, i32, i32); n],  // Vec<(i32, i32, i32)>
     }
-    plan.insert(0, (0, 0, 0));
-    let yes = plan.windows(2).all(|w| {
-        let (t0, x0, y0) = w[0];
-        let (t1, x1, y1) = w[1];
-        let time = t1 - t0;
-        let dist = (x1 - x0).abs() + (y1 - y0).abs();
-        dist <= time && time % 2 == dist % 2
-    });
-    println!("{}", if yes { "Yes" } else { "No" });
+
+    for i in 0..points.len() {
+        let t_delta = if i == 0 {
+            points[i].0
+        } else {
+            (points[i].0 - points[i - 1].0).abs()
+        };
+        let x_delta = if i == 0 {
+            points[i].1
+        } else {
+            (points[i].1 - points[i - 1].1).abs()
+        };
+        let y_delta = if i == 0 {
+            points[i].2
+        } else {
+            (points[i].2 - points[i - 1].2).abs()
+        };
+        if t_delta < x_delta + y_delta || (t_delta - (x_delta + y_delta)) % 2 != 0 {
+            println!("No");
+            return;
+        }
+    }
+    println!("Yes");
 }
