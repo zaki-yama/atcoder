@@ -8,27 +8,25 @@ fn main() {
         mut points: [(i32, i32, i32); n],  // Vec<(i32, i32, i32)>
     }
 
-    for i in 0..points.len() {
-        let t_delta = if i == 0 {
-            points[i].0
-        } else {
-            (points[i].0 - points[i - 1].0).abs()
-        };
-        let x_delta = if i == 0 {
-            points[i].1
-        } else {
-            (points[i].1 - points[i - 1].1).abs()
-        };
-        let y_delta = if i == 0 {
-            points[i].2
-        } else {
-            (points[i].2 - points[i - 1].2).abs()
-        };
+    let mut t_prev = 0;
+    let mut x_prev = 0;
+    let mut y_prev = 0;
+
+    for &(t, x, y) in &points {
+        let t_delta = (t - t_prev).abs();
+        let x_delta = (x - x_prev).abs();
+        let y_delta = (y - y_prev).abs();
+
         let dist = x_delta + y_delta;
+
         if t_delta < dist || t_delta % 2 != dist % 2 {
             println!("No");
             return;
         }
+
+        t_prev = t;
+        x_prev = x;
+        y_prev = y;
     }
     println!("Yes");
 }
