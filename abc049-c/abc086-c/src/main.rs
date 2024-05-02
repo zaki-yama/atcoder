@@ -24,7 +24,8 @@ fn main() {
         } else {
             (points[i].2 - points[i - 1].2).abs()
         };
-        if t_delta < x_delta + y_delta || (t_delta - (x_delta + y_delta)) % 2 != 0 {
+        let dist = x_delta + y_delta;
+        if t_delta < dist || t_delta % 2 != dist % 2 {
             println!("No");
             return;
         }
