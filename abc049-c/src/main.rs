@@ -2,33 +2,36 @@
 
 use proconio::input;
 
+const DIVIDE: [&str; 4] = ["dream", "dreamer", "erase", "eraser"];
+
 fn main() {
     input! {
         s: String,
     }
-    if is_match(&s) {
-        println!("YES")
-    } else {
-        println!("NO")
-    };
-}
 
-fn is_match(s: &str) -> bool {
-    if s.len() == 0 {
-        return true;
-    }
+    // 後ろから解くかわりにすべての文字列を「左右反転」する
+    let reverse = s.chars().rev().collect::<String>();
+    let reverse_divide = DIVIDE
+        .iter()
+        .map(|&d| d.chars().rev().collect::<String>())
+        .collect::<Vec<String>>();
 
-    if s.starts_with("dream") || s.starts_with("erase") {
-        if s.starts_with("dreamer") {
-            if is_match(&s[7..]) {
-                return true;
-            }
-        } else if s.starts_with("eraser") {
-            if is_match(&s[6..]) {
-                return true;
+    let mut can = true;
+    let mut i = 0;
+    while i < reverse.len() {
+        let mut can_divide = false;
+        for d in reverse_divide.iter() {
+            if reverse[i..].starts_with(d) {
+                can_divide = true;
+                i += d.len();
+                break;
             }
         }
-        return is_match(&s[5..]);
+        if !can_divide {
+            can = false;
+            break;
+        }
     }
-    return false;
+    let result = if can { "YES" } else { "NO" };
+    println!("{}", result);
 }
