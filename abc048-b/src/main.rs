@@ -6,5 +6,9 @@ fn main() {
         b: u64,
         x: u64,
     }
-    println!("{}", b / x - a / x);
+    let bx = b / x;
+    let ax = a / x;
+    let ans = if a % x == 0 { bx - ax + 1 } else { bx - ax };
+
+    println!("{}", ans);
 }
