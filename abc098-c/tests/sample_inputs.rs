@@ -20,7 +20,6 @@ WEEWW"#,
 }
 
 #[test]
-#[ignore]
 fn sample2() {
     let testdir = TestDir::new(BIN, "");
     let output = testdir
@@ -38,7 +37,6 @@ WEWEWEEEWWWE"#,
 }
 
 #[test]
-#[ignore]
 fn sample3() {
     let testdir = TestDir::new(BIN, "");
     let output = testdir
